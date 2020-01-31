@@ -80,6 +80,8 @@ struct wlr_xwayland *wlr_xwayland_create(struct wl_display *wl_display,
 	xwayland->wl_display = wl_display;
 	xwayland->compositor = compositor;
 
+	xwayland->scale = 1;
+
 	wl_signal_init(&xwayland->events.new_surface);
 	wl_signal_init(&xwayland->events.ready);
 
@@ -102,6 +104,10 @@ struct wlr_xwayland *wlr_xwayland_create(struct wl_display *wl_display,
 	wl_signal_add(&xwayland->server->events.ready, &xwayland->server_ready);
 
 	return xwayland;
+}
+
+void wlr_xwayland_set_scale(struct wlr_xwayland *xwayland, int32_t scale) {
+	xwayland->scale = scale;
 }
 
 void wlr_xwayland_set_cursor(struct wlr_xwayland *xwayland,
